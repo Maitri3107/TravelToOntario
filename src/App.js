@@ -3,8 +3,16 @@ import logo from './logo.svg';
 import { Navbar, NavbarBrand } from 'reactstrap';
 import Cities from './components/CitiesComponent';
 import './App.css';
+import { PLACES } from './Shared/places';
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      places: PLACES
+    };
+  }
   render() {
   return (
     <div >
@@ -13,7 +21,7 @@ class App extends Component {
           <NavbarBrand href="/">Travel To Ontario</NavbarBrand>
         </div>
       </Navbar>
-      <Cities />
+      <Cities places={this.state.places} />
     </div>
   );
 }
