@@ -1,27 +1,50 @@
 import React, { Component } from 'react';
-import { Media } from 'reactstrap';
+import { Card, CardImg, CardImgOverlay, CardText, CardBody,CardTitle } from 'reactstrap';
 
 class Cities extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            
-        };
+            selectedPlace: null
+        }
     }
+
+    onPlaceSelect(place) {
+      this.setState({selectedPlace: place});
+    }
+
+    renderPlace(place) {
+      if (place != null) {
+        return(
+          <Card>
+            <CardImg width="100%" src={place.image} alt={place.name} />
+            <CardBody>
+              <CardTitle>{place.name}</CardTitle>
+              <CardText>{place.description}</CardText>
+            </CardBody>
+          </Card>
+        );
+
+      }
+      else 
+      {
+        return(
+          <div></div>
+        );
+      }
+    }
+
 
     render() {
         const cities = this.props.places.map((place) => {
             return (
-              <div key={place.id} className="col-12 mt-5">
-                <Media tag="li" >
-                  <Media left middle>
-                      <Media object src={place.image} alt={place.name} />
-                  </Media>
-                  <Media body className="ml-5">
-                    <Media heading>{place.name}</Media>
-                    <p>{place.description}</p>
-                  </Media>
-                </Media>
+              <div key={place.id} className="col-12 col-md-5 mt-1">
+                <Card onClick={() => this.onPlaceSelect(place)}>
+                    <CardImg width="100%" src={place.image} alt={place.name} />
+                  <CardImgOverlay >
+                    <CardTitle>{place.name}</CardTitle>
+                  </CardImgOverlay>
+                  </Card>
               </div>
             );
         });
@@ -29,9 +52,12 @@ class Cities extends Component {
         return (
           <div className="container">
             <div className="row">
-              <Media list>
+              
                   {cities}
-              </Media>
+              
+            </div>
+            <div className="row">
+              {this.renderPlace(this.state.selectedPlace)}
             </div>
           </div>
         );
