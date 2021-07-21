@@ -1,7 +1,7 @@
 import React, { Component, component } from 'react';
 import logo from './logo.svg';
 import { Navbar, NavbarBrand } from 'reactstrap';
-
+import Cities from './components/CitiesComponent';
 import './App.css';
 
 class App extends Component {
@@ -13,7 +13,7 @@ class App extends Component {
           <NavbarBrand href="/">Travel To Ontario</NavbarBrand>
         </div>
       </Navbar>
-      
+      <Cities />
     </div>
   );
 }
