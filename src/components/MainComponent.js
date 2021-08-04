@@ -20,7 +20,7 @@ class Main extends Component {
 
   render() {
   return (
-    <div >
+    <div className="App">
       <Navbar dark color="primary">
         <div className="container">
           <NavbarBrand href="/">Travel To Ontario</NavbarBrand>
@@ -28,7 +28,7 @@ class Main extends Component {
       </Navbar>
       <Cities places={this.state.places} onClick={(placeId) => this.onPlaceSelect(placeId)} />
       <PlaceDetail
-        place={this.state.places.filter((place) => place.id === this.state.selectedPlace)[0]} />
+        selectedPlace={this.state.places.filter((place) => place.id === this.state.selectedPlace)[0]} />
     </div>
   );
 }
