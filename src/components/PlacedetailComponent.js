@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
- import { Card, CardImg, CardImgOverlay, CardText, CardBody, CardTitle } from 'reactstrap'
+ import { Card, CardImg, CardText, CardBody, CardTitle } from 'reactstrap'
 
  class PlaceDetail extends Component {
  	render() {
  		const place = this.props.selectedPlace
- 		if(place == null || place == undefined) return (<div></div>)
+ 		if(place === null || place === undefined) return (<div></div>)
 
  		return (
  			<div>

@@ -26,8 +26,7 @@ class Main extends Component {
           <NavbarBrand href="/">Travel To Ontario</NavbarBrand>
         </div>
       </Navbar>
-      <Cities places={this.state.places} 
-        onClick={(placeId) => this.onPlaceSelect(placeId)} />
+      <Cities places={this.state.places} onClick={(placeId) => this.onPlaceSelect(placeId)} />
       <PlaceDetail
         place={this.state.places.filter((place) => place.id === this.state.selectedPlace)[0]} />
     </div>
