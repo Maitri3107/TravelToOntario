@@ -1,9 +1,9 @@
-import React, { Component } from 'react'
+import React from 'react'
  import { Card, CardImg, CardText, CardBody, CardTitle } from 'reactstrap'
 
- class PlaceDetail extends Component {
-	
-	renderPlace(place) {
+
+ 
+	function RenderPlace({place}) {
 		if(place != null){
 			return (
 					<div className = 'col-12 col-md-5 m-1'>
@@ -15,11 +15,11 @@ import React, { Component } from 'react'
  							</CardBody>
  						</Card>
  					</div>
-					 )
-					}
-				}
-		   
-				renderComments(comments) {
+					)
+		}
+	}
+					   
+				function RenderComments({comments}) {
 					if(comments!= null){
 						return (
 							comments.map((comment, i) => {
@@ -36,23 +36,23 @@ import React, { Component } from 'react'
 					}
 				}
 		   
-				render() {
-					const place = this.props.selectedPlace
-					if(place == null || place == undefined) return (<div></div>)
+				const PlaceDetail = (props) => {
+					const place = props.selectedPlace
+					if(place === null || place === undefined) return (<div></div>)
 		   
 					return (
 						<div className ='container' >
 							<div className = 'row'>
-								{this.renderPlace(place)}
+							<RenderPlace place = {place} />
 								<div className = 'col-12 col-md-5 m-1'>
 								<h4>Comments</h4>
-								{this.renderComments(place.comments)}			
+							<RenderComments comments = {place.comments}	/>		
  					</div>
  				</div>
  			</div>
  		)
  	}
- }
+ 
 
 
  export default PlaceDetail  
