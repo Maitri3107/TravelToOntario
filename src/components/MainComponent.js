@@ -25,9 +25,7 @@ class Main extends Component {
     };
   }
 
-
   render() {
-
     const HomePage = () => {
       return(
         <Home place={this.state.places.filter((place) => place.featured)[0]}
@@ -36,12 +34,23 @@ class Main extends Component {
          />
       );
     }
+
+    const PlaceWithId = ({match}) => {
+      return(
+        <PlaceDetail 
+          place = {this.state.places.filter((place) => place.id === parseInt(match.params.placeId))[0]} 
+          comments = {this.state.comments.filter((comment) => comment.placeId === parseInt(match.params.placeId))}
+        />
+      )
+    }
+    
   return (
     <div className="App">
      <Header />
       <Switch>
         <Route path="/home" component={HomePage} />
         <Route exact path="/cities" component={() => <Cities places={this.state.places} />} />
+        <Route path="cities/:placeId" component={PlaceWithId} />
         <Route exact path="/contactus" component={Contact} />
         <Redirect to="/home" />
       </Switch>
