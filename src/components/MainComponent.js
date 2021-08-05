@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Home from './HomeComponent';
 import { Navbar, NavbarBrand } from 'reactstrap';
 import Cities from './CitiesComponent';
+import About from './AboutComponent';
 import Contact from './ContactComponent';
 import PlaceDetail from './PlacedetailComponent';
 import Header from './HeaderComponent';
@@ -51,6 +52,7 @@ class Main extends Component {
         <Route path="/home" component={HomePage} />
         <Route exact path="/cities" component={() => <Cities places={this.state.places} />} />
         <Route path="/cities/:placeId" component={PlaceWithId} />
+        <Route exact path = "/aboutus" component = { () => <About leaders = {this.state.leaders} /> } />
         <Route exact path="/contactus" component={Contact} />
         <Redirect to="/home" />
       </Switch>
