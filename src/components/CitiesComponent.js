@@ -2,7 +2,7 @@ import React from 'react';
 import { Card, CardImg, CardImgOverlay,CardTitle, Breadcrumb, BreadcrumbItem  } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
-function RenderCitiesItem({ place, onClick }) {
+function RenderCitiesItem({place, onClick}) {
   return (
     <Card>
       <Link to = {`/cities/${place.id}`} >

@@ -50,7 +50,7 @@ class Main extends Component {
       <Switch>
         <Route path="/home" component={HomePage} />
         <Route exact path="/cities" component={() => <Cities places={this.state.places} />} />
-        <Route path="cities/:placeId" component={PlaceWithId} />
+        <Route path="/cities/:placeId" component={PlaceWithId} />
         <Route exact path="/contactus" component={Contact} />
         <Redirect to="/home" />
       </Switch>
