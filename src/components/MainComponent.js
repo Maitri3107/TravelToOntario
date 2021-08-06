@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Home from './HomeComponent';
-import { Navbar, NavbarBrand } from 'reactstrap';
 import Cities from './CitiesComponent';
 import About from './AboutComponent';
 import Contact from './ContactComponent';
