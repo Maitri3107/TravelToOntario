@@ -7,31 +7,30 @@ import Contact from './ContactComponent';
 import PlaceDetail from './PlacedetailComponent';
 import Header from './HeaderComponent';
 import Footer from './FooterComponent';
-import { PLACES } from '../Shared/places';
-import { COMMENTS } from '../Shared/comments';
-import { LEADERS } from '../Shared/leaders';
-import { PROMOTIONS } from '../Shared/promotions';
-import {Switch, Route, Redirect } from 'react-router-dom';
+import {Switch, Route, Redirect, withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 
+const mapStateToProps = state => {
+    return {
+      places: state.places,
+      comments: state.comments,
+      promotions: state.promotions,
+      leaders: state.leaders,
+    }
+}
 
 class Main extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      places: PLACES,
-      comments: COMMENTS,
-      promotions: PROMOTIONS,
-      leaders: LEADERS
-    };
   }
-
+ 
   render() {
     const HomePage = () => {
       return(
-        <Home place={this.state.places.filter((place) => place.featured)[0]}
-        promotion={this.state.promotions.filter((promotion) => promotion.featured)[0]}
-        leader={this.state.leaders.filter((leader) => leader.featured)[0]}
+        <Home place={this.props.places.filter((place) => place.featured)[0]}
+        promotion={this.props.promotions.filter((promotion) => promotion.featured)[0]}
+        leader={this.props.leaders.filter((leader) => leader.featured)[0]}
          />
       );
     }
@@ -39,8 +38,8 @@ class Main extends Component {
     const PlaceWithId = ({match}) => {
       return(
         <PlaceDetail 
-          place = {this.state.places.filter((place) => place.id === parseInt(match.params.placeId))[0]} 
-          comments = {this.state.comments.filter((comment) => comment.placeId === parseInt(match.params.placeId))}
+          place = {this.props.places.filter((place) => place.id === parseInt(match.params.placeId))[0]} 
+          comments = {this.props.comments.filter((comment) => comment.placeId === parseInt(match.params.placeId))}
         />
       )
     }
@@ -50,9 +49,9 @@ class Main extends Component {
      <Header />
       <Switch>
         <Route path="/home" component={HomePage} />
-        <Route exact path="/cities" component={() => <Cities places={this.state.places} />} />
+        <Route exact path="/cities" component={() => <Cities places={this.props.places} />} />
         <Route path="/cities/:placeId" component={PlaceWithId} />
-        <Route exact path = "/aboutus" component = { () => <About leaders = {this.state.leaders} /> } />
+        <Route exact path = "/aboutus" component = { () => <About leaders = {this.props.leaders} /> } />
         <Route exact path="/contactus" component={Contact} />
         <Redirect to="/home" />
       </Switch>
@@ -62,5 +61,5 @@ class Main extends Component {
 }
 }
 
-export default Main;
+export default withRouter(connect(mapStateToProps)(Main));
 
