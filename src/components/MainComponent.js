@@ -8,6 +8,7 @@ import Header from './HeaderComponent';
 import Footer from './FooterComponent';
 import {Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { addComment } from '../redux/ActionCreators';
 
 const mapStateToProps = state => {
     return {
@@ -17,6 +18,10 @@ const mapStateToProps = state => {
       leaders: state.leaders,
     }
 }
+
+const mapDispatchToProps = (dispatch) => ({
+  addComment: (placeId, rating, author, comment) => dispatch(addComment(placeId, rating, author, comment))
+});
 
 class Main extends Component {
   constructor(props) {
@@ -37,8 +42,9 @@ class Main extends Component {
     const PlaceWithId = ({match}) => {
       return(
         <PlaceDetail 
-          place = {this.props.places.filter((place) => place.id === parseInt(match.params.placeId))[0]} 
-          comments = {this.props.comments.filter((comment) => comment.placeId === parseInt(match.params.placeId))}
+        place = {this.props.places.filter((place) => place.id === parseInt(match.params.placeId,10))[0]}
+        comments = {this.props.comments.filter((comment) => comment.placeId === parseInt(match.params.placeId,10))}
+        addComment = {this.props.addComment}
         />
       )
     }
@@ -49,16 +55,16 @@ class Main extends Component {
       <Switch>
         <Route path="/home" component={HomePage} />
         <Route exact path="/cities" component={() => <Cities places={this.props.places} />} />
-        <Route path="/cities/:placeId" component={PlaceWithId} />
+        <Route path="/cities/:placeId" component = { PlaceWithId} />
         <Route exact path = "/aboutus" component = { () => <About leaders = {this.props.leaders} /> } />
         <Route exact path="/contactus" component={Contact} />
         <Redirect to="/home" />
       </Switch>
       <Footer />
     </div>
-  );
+  )
 }
 }
 
-export default withRouter(connect(mapStateToProps)(Main));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Main));
 

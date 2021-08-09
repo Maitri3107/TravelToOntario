@@ -25,8 +25,6 @@ function RenderPlace({ place }) {
 	}
 }
 
-
-
 function RenderComments({ comments, addComment, placeId }) {
 	if (comments != null) {
 		return (
@@ -74,9 +72,9 @@ const PlaceDetail = (props) => {
 				<div className='row'>
 					<RenderPlace place={props.place} />
 					<RenderComments
-						comments={props.comments}
-						addComment={props.addComment}
-						placeId={props.place.id}
+						comments = {props.comments}
+						addComment = {props.addComment}
+						placeId = {props.place.id}
 					/>
 				</div>
 			</div>
@@ -95,7 +93,7 @@ class CommentForm extends Component {
 			isModalOpen: false
 		}
 		this.toggleModal = this.toggleModal.bind(this)
-		this.handleAddComment = this.handleAddComment.bind(this)
+		this.handleSubmit = this.handleSubmit.bind(this)
 	}
 
 	toggleModal() {
@@ -104,11 +102,9 @@ class CommentForm extends Component {
 		})
 	}
 
-	handleAddComment (values) {
+	handleSubmit (values) {
 		this.toggleModal()
-		console.log('Current State is: ' + JSON.stringify(values));
-        alert('Current State is: ' + JSON.stringify(values));
-		//this.props.addComment(parseInt(this.props.placeId), values.rating, values.name, values.comment)
+		this.props.addComment(this.props.placeId, values.rating, values.author, values.comment);
 	}
 	render() {
 		return (
@@ -116,7 +112,7 @@ class CommentForm extends Component {
 				<Button outline onClick={this.toggleModal}><span className='fa fa-pencil fa-lg'></span> Add Comment</Button>
 				<Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal} >
 				<ModalHeader toggle = {this.toggleModal} >Submit Comment</ModalHeader>
- 					<LocalForm  className = 'container' onSubmit = {(values) => this.handleAddComment(values) }>
+ 					<LocalForm  className = 'container' onSubmit = {(values) => this.handleSubmit(values) }>
  						<ModalBody>
  							<Row className = 'form-group'>
  								<Col sm = {12}><Label htmlFor = 'rating'>Rating</Label></Col>
