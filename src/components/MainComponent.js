@@ -23,7 +23,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = (dispatch) => ({
   addComment: (placeId, rating, author, comment) => dispatch(addComment(placeId, rating, author, comment)),
-  fetchPlaces: () => { dispatch(fetchPlaces())}
+  fetchPlaces: () => { dispatch(fetchPlaces())},
+  resetFeedbackForm: () => { dispatch(actions.reset('feedback'))}
 });
 
 class Main extends Component {
@@ -68,7 +69,7 @@ class Main extends Component {
         <Route exact path="/cities" component={() => <Cities places={this.props.places} />} />
         <Route path="/cities/:placeId" component = { PlaceWithId } />
         <Route exact path = "/aboutus" component = { () => <About leaders = {this.props.leaders} /> } />
-        <Route exact path="/contactus" component={Contact} />
+        <Route exact path="/contactus" component={() => <Contact resetFeedbackForm={this.props.resetFeedbackForm} />} />
         <Redirect to="/home" />
       </Switch>
       <Footer />
