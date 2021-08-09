@@ -1,1 +1,4 @@
 export const ADD_COMMENT = "ADD_COMMENT";
+export const PLACES_LOADING = "PLACES_LOADING";
+export const PLACES_FAILED = 'PLACES_FAILED';
+export const ADD_PLACES = 'ADD_PLACES';

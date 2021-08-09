@@ -8,7 +8,9 @@ import Header from './HeaderComponent';
 import Footer from './FooterComponent';
 import {Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { addComment } from '../redux/ActionCreators';
+import { addComment, fetchPlaces } from '../redux/ActionCreators';
+import { actions } from 'react-redux-form';
+
 
 const mapStateToProps = state => {
     return {
@@ -20,7 +22,8 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  addComment: (placeId, rating, author, comment) => dispatch(addComment(placeId, rating, author, comment))
+  addComment: (placeId, rating, author, comment) => dispatch(addComment(placeId, rating, author, comment)),
+  fetchPlaces: () => { dispatch(fetchPlaces())}
 });
 
 class Main extends Component {
@@ -28,11 +31,17 @@ class Main extends Component {
     super(props);
 
   }
+
+  componentDidMount() {
+    this.props.fetchPlaces();
+  }
  
   render() {
     const HomePage = () => {
       return(
-        <Home place={this.props.places.filter((place) => place.featured)[0]}
+        <Home place={this.props.places.places.filter((place) => place.featured)[0]}
+        placesLoading={this.props.places.isLoading}
+        placesErrMess={this.props.places.errMess}
         promotion={this.props.promotions.filter((promotion) => promotion.featured)[0]}
         leader={this.props.leaders.filter((leader) => leader.featured)[0]}
          />
@@ -42,7 +51,9 @@ class Main extends Component {
     const PlaceWithId = ({match}) => {
       return(
         <PlaceDetail 
-        place = {this.props.places.filter((place) => place.id === parseInt(match.params.placeId,10))[0]}
+        place = {this.props.places.places.filter((place) => place.id === parseInt(match.params.placeId,10))[0]}
+        isLoading={this.props.places.isLoading}
+        errMess={this.props.places.errMess}
         comments = {this.props.comments.filter((comment) => comment.placeId === parseInt(match.params.placeId,10))}
         addComment = {this.props.addComment}
         />
@@ -55,7 +66,7 @@ class Main extends Component {
       <Switch>
         <Route path="/home" component={HomePage} />
         <Route exact path="/cities" component={() => <Cities places={this.props.places} />} />
-        <Route path="/cities/:placeId" component = { PlaceWithId} />
+        <Route path="/cities/:placeId" component = { PlaceWithId } />
         <Route exact path = "/aboutus" component = { () => <About leaders = {this.props.leaders} /> } />
         <Route exact path="/contactus" component={Contact} />
         <Redirect to="/home" />
