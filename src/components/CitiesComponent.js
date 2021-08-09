@@ -2,13 +2,14 @@ import React from 'react';
 import { Card, CardImg, CardImgOverlay, CardTitle, Breadcrumb, BreadcrumbItem } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { Loading } from './LoadingComponent';
+import { baseUrl} from '../Shared/baseUrl';
 
 
 function RenderCitiesItem({ place, onClick }) {
   return (
     <Card>
       <Link to={`/cities/${place.id}`} >
-        <CardImg width="100%" src={place.image} alt={place.name} />
+        <CardImg width="100%" src={baseUrl + place.image} alt={place.name} />
         <CardImgOverlay>
           <CardTitle>{place.name}</CardTitle>
         </CardImgOverlay>

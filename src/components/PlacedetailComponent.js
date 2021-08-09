@@ -6,9 +6,7 @@ import {
 import { Link } from 'react-router-dom';
 import { LocalForm, Control, Errors } from 'react-redux-form';
 import { Loading } from './LoadingComponent';
-
-
-
+import { baseUrl } from '../Shared/baseUrl';
 
 
 function RenderPlace({ place }) {
@@ -16,7 +14,7 @@ function RenderPlace({ place }) {
 		return (
 			<div className='col-12 col-md-5 m-1'>
 				<Card>
-					<CardImg width="100%" src={place.image} alt={place.name} />
+					<CardImg width="100%" src={ baseUrl + place.image} alt={place.name} />
 					<CardBody>
 						<CardTitle>{place.name}</CardTitle>
 						<CardText>{place.description}</CardText>

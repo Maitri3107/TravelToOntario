@@ -3,7 +3,8 @@ import * as ActionTypes from './ActionTypes';
 export const Places = (state =  {
     isLoading: true,
     errmesss: null,
-    places: []}, action) => {
+    places: []
+}, action) => {
     switch (action.type) {
         case ActionTypes.ADD_PLACES:
             return {...state, isLoading: false, errMess: null, places: action.payload};

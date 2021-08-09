@@ -8,7 +8,7 @@ import Header from './HeaderComponent';
 import Footer from './FooterComponent';
 import {Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { addComment, fetchPlaces } from '../redux/ActionCreators';
+import { addComment, fetchPlaces, fetchComments, fetchPromos } from '../redux/ActionCreators';
 import { actions } from 'react-redux-form';
 
 
@@ -24,7 +24,9 @@ const mapStateToProps = state => {
 const mapDispatchToProps = (dispatch) => ({
   addComment: (placeId, rating, author, comment) => dispatch(addComment(placeId, rating, author, comment)),
   fetchPlaces: () => { dispatch(fetchPlaces())},
-  resetFeedbackForm: () => { dispatch(actions.reset('feedback'))}
+  resetFeedbackForm: () => { dispatch(actions.reset('feedback'))},
+  fetchComments: () => { dispatch(fetchComments())},
+  fetchPromos: () => { dispatch(fetchPromos())}
 });
 
 class Main extends Component {
@@ -35,15 +37,21 @@ class Main extends Component {
 
   componentDidMount() {
     this.props.fetchPlaces();
+    this.props.fetchComments();
+    this.props.fetchPromos();
+
   }
  
   render() {
     const HomePage = () => {
       return(
-        <Home place={this.props.places.places.filter((place) => place.featured)[0]}
+        <Home 
+        place={this.props.places.places.filter((place) => place.featured)[0]}
         placesLoading={this.props.places.isLoading}
         placesErrMess={this.props.places.errMess}
-        promotion={this.props.promotions.filter((promotion) => promotion.featured)[0]}
+        promotion={this.props.promotions.promotions.filter((promos) => promos.featured)[0]}
+        promosLoading={this.props.promotions.isLoading}
+        promosErrMess={this.props.promotions.errMess}
         leader={this.props.leaders.filter((leader) => leader.featured)[0]}
          />
       );
@@ -55,8 +63,10 @@ class Main extends Component {
         place = {this.props.places.places.filter((place) => place.id === parseInt(match.params.placeId,10))[0]}
         isLoading={this.props.places.isLoading}
         errMess={this.props.places.errMess}
-        comments = {this.props.comments.filter((comment) => comment.placeId === parseInt(match.params.placeId,10))}
+        comments = {this.props.comments.comments.filter((comment) => comment.placeId === parseInt(match.params.placeId,10))}
+        commentsErrMess={this.props.comments.errMess}
         addComment = {this.props.addComment}
+        
         />
       )
     }
