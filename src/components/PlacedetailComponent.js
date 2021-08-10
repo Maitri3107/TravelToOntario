@@ -25,7 +25,7 @@ function RenderPlace({ place }) {
 	}
 }
 
-function RenderComments({ comments, addComment, placeId }) {
+function RenderComments({ comments, postComment, placeId }) {
 	if (comments != null) {
 		return (
 			<div className='col-12 col-md-5 m-1'>
@@ -41,7 +41,7 @@ function RenderComments({ comments, addComment, placeId }) {
 						)
 					})
 				}
-				<CommentForm placeId={placeId} addComment={addComment} />
+				<CommentForm placeId={placeId} postComment={postComment} />
 			</div>
 
 		)
@@ -92,7 +92,7 @@ const PlaceDetail = (props) => {
 					<RenderPlace place={props.place} />
 					<RenderComments
 						comments = {props.comments}
-						addComment = {props.addComment}
+						postComment = {props.postComment}
 						placeId = {props.place.id}
 					/>
 				</div>
@@ -123,7 +123,7 @@ class CommentForm extends Component {
 
 	handleSubmit (values) {
 		this.toggleModal()
-		this.props.addComment(this.props.placeId, values.rating, values.author, values.comment);
+		this.props.postComment(this.props.placeId, values.rating, values.author, values.comment);
 	}
 	render() {
 		return (
