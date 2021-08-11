@@ -5,7 +5,6 @@ import { baseUrl } from '../Shared/baseUrl';
 import { FadeTransform } from 'react-animation-components';
 
 
-
 function RenderCard({ item, isLoading, errMess }) {
     
     if (isLoading) {
@@ -27,11 +26,12 @@ function RenderCard({ item, isLoading, errMess }) {
                     exitTransform: 'scale(0.5) translateY(-50%)'
                 }}>
             <Card>
-                hellofrgthngfderthygbfdertg
-                erthgfdefrgthygfr
-                erthgnbfdergtyhgf
-                sdfgfdfgvdefrgfhb<br />
-                fgnfdawsfghngfefghf
+            <CardImg src= {baseUrl + item?.image} alt={item?.name} />
+               <CardBody>
+                   <CardTitle> {item?.name} </CardTitle>
+                   {item?.designation ? <CardSubtitle>{item?.designation}</CardSubtitle> : null}
+                   <CardText>{item?.description}</CardText>
+               </CardBody>
             </Card>
             </FadeTransform>
         )
@@ -39,15 +39,19 @@ function RenderCard({ item, isLoading, errMess }) {
 
 
 function Home(props) {
+    console.log('leader' + props)
     return (
         <div className="container">
             <div className="row align-items-start">
                 <div className="col-12 col-md m-1">
                     <RenderCard item={props.place} isLoading={props.placesLoading} errMess={props.placesErrMess} />
                 </div>
-                
                 <div className="col-12 col-md m-1">
-                    <RenderCard item={props.leader} />
+                   <RenderCard item={props.promotion} isLoading={props.promosLoading} errMess={props.promosErrMess} />
+               </div>
+                <div className="col-12 col-md m-1">
+                    <RenderCard item={props.leader} isLoading = {props.leadersLoading}
+ 						errMess = {props.leadersFailed}/>
                 </div>
             </div>
         </div>

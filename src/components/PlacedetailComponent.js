@@ -34,6 +34,7 @@ function RenderPlace({ place }) {
 }
 
 function RenderComments({ comments, postComment, placeId }) {
+	console.log ("jngerjgner" , comments)
 	if (comments != null) {
 		return (
 			<div className='col-12 col-md-5 m-1'>
@@ -136,12 +137,12 @@ class CommentForm extends Component {
 
 	handleSubmit(values) {
 		this.toggleModal()
-		this.props.postComment(this.props.placeId, values.rating, values.author, values.comment);
+		this.props.postComment(parseInt(this.props.placeId), values.rating, values.author, values.comment);
 	}
 	render() {
 		return (
 			<div>
-				<Button outline onClick={this.toggleModal}><span className='fa fa-pencil fa-lg'></span> Add Comment</Button>
+				<Button outline onClick = {this.toggleModal}><span className='fa fa-pencil fa-lg'></span> Add Comment</Button>
 				<Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal} >
 					<ModalHeader toggle={this.toggleModal} >Submit Comment</ModalHeader>
 					<LocalForm className='container' onSubmit={(values) => this.handleSubmit(values)}>
@@ -160,10 +161,10 @@ class CommentForm extends Component {
 								</Col>
 							</Row>
 							<Row className='form-group'>
-								<Col sm={12}><Label htmlFor='name'>Your Name</Label></Col>
+								<Col sm={12}><Label htmlFor='author'>Your Name</Label></Col>
 								<Col sm={12}>
-									<Control.text className='form-control' model='.name'
-										id='name' name='name' placeholder='Your Name'
+									<Control.text className='form-control' model='.author'
+										id='author' name='author' placeholder='Your Name'
 										validators={{
 											minLength: minLength(3),
 											maxLength: maxLength(15)

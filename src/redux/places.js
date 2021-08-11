@@ -19,4 +19,4 @@ export const Places = (state =  {
         default:
             return state;
     }
-};
+}
